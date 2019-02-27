@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
+
+Route::get('/friend/{friend}', 'FriendController@show');
+
+Route::get('/match/create', 'MatchController@create');
+Route::get('/match/{match}', 'MatchController@show');
+Route::post('/match', 'MatchController@store');
