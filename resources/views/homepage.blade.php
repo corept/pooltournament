@@ -18,18 +18,18 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($players as $key => $player)
+        @foreach($friends as $key => $friend)
           <tr>
             <td>{{ $key + 1 }}</td>
-            <td>@if($key === 0)<i class="fas fa-crown"></i>@endif {{ $player->name }}</td>
-            <td>{{ $player->points }}</td>
-            <td>{{ $player->balls }}</td>
+            <td>@if($key === 0)<i class="fas fa-crown"></i>@endif {{ $friend->name }}</td>
+            <td>{{ $friend->points }}</td>
+            <td>{{ $friend->balls }}</td>
           </tr>
         @endforeach
         </tbody>
         <tfoot>
         <tr>
-          <td colspan="100%">{{ $players->links() }}</td>
+          <td colspan="100%">{{ $friends->links() }}</td>
         </tr>
         </tfoot>
       </table>
@@ -50,6 +50,22 @@
         </tr>
         </thead>
         <tbody>
+
+        <form action="/" method="GET">
+          <div class="row mb-3">
+            <div class="col-10">
+              <select name="search" class="form-control">
+                <option value="">All</option>
+                @foreach($friends as $friend)
+                  <option value="{{ $friend->id }}" @if(isset($_GET['search']) && $_GET['search'] == $friend->id) selected @endif>{{ $friend->name }}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="col-2">
+              <button type="submit" class="btn btn-secondary w-100"><i class="fas fa-search"></i>&nbsp;Search</button>
+            </div>
+          </div>
+        </form>
 
         @foreach($matches as $match)
           <tr onmouseover="style.cursor='pointer'" onclick="window.location='/match/{{ $match->id }}'">

@@ -8,10 +8,15 @@ class HomeController extends Controller
 {
   public function index()
   {
-    $players = \App\Friend::orderBy('points', 'DESC')->orderBy('balls', 'ASC')->paginate(10, ['*'], 'player');
+    $friends = \App\Friend::orderBy('points', 'DESC')->orderBy('balls', 'ASC')->paginate(10, ['*'], 'friend');
 
-    $matches = \App\Match::orderBy('date', 'DESC')->paginate(20, ['*'], 'match');
+    $matches = \App\Match::when(request()->filled('search'), function($query) {
+      return $query->where('winner_id', request()->input('search'))
+        ->orWhere('loser_id', request()->input('search'));
+    })
+      ->orderBy('date', 'DESC')
+      ->paginate(20, ['*'], 'match');
 
-    return view('homepage', compact('players', 'matches'));
+    return view('homepage', compact('friends', 'matches'));
   }
 }

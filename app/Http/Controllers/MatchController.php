@@ -14,7 +14,9 @@ class MatchController extends Controller
 
   public function create()
   {
-    return view('match.create');
+    $friends = \App\Friend::all();
+
+    return view('match.create', compact('friends'));
   }
 
   public function store()

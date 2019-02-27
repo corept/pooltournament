@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Match extends Model
 {
-  protected $dates = ['date'];
+  protected $dates = ['date'], $guarded = [];
 
   public function winner()
   {
@@ -16,5 +16,10 @@ class Match extends Model
   public function loser()
   {
     return $this->belongsTo('App\Friend', 'loser_id');
+  }
+
+  public function setDateAttribute($value)
+  {
+    $this->attributes['date'] = \Carbon\Carbon::createFromFormat('d-m-Y', $value);
   }
 }
