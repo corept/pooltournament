@@ -12,7 +12,7 @@ class FriendsTableSeeder extends Seeder
    */
   public function run(Faker $faker)
   {
-    for ($i = 0; $i < 10; $i++) {
+    for ($i = 0; $i < 15; $i++) {
       \App\Friend::create([
         'name' => $faker->name,
         'created_at' => now(),

@@ -21,17 +21,12 @@
         @foreach($friends as $key => $friend)
           <tr>
             <td>{{ $key + 1 }}</td>
-            <td>@if($key === 0)<i class="fas fa-crown"></i>@endif {{ $friend->name }}</td>
+            <td><a href="/friend/{{ $friend->id }}">@if($key === 0)<i class="fas fa-crown"></i>@endif {{ $friend->name }}</a></td>
             <td>{{ $friend->points }}</td>
             <td>{{ $friend->balls }}</td>
           </tr>
         @endforeach
         </tbody>
-        <tfoot>
-        <tr>
-          <td colspan="100%">{{ $friends->links() }}</td>
-        </tr>
-        </tfoot>
       </table>
     </div>
   </div>
@@ -69,7 +64,7 @@
 
         @foreach($matches as $match)
           <tr onmouseover="style.cursor='pointer'" onclick="window.location='/match/{{ $match->id }}'">
-            <td>{{ $match->date->format('d/m/Y') }}</td>
+            <td>{{ $match->date->format('d-m-Y') }}</td>
             <td><a href="/friend/{{ $match->winner->id }}">{{ $match->winner->name }}</a></td>
             <td><a href="/friend/{{ $match->loser->id }}">{{ $match->loser->name }}</a></td>
           </tr>

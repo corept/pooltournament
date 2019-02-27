@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Friend extends Model
 {
+  protected $guarded = [];
+
   public function matches()
   {
     return Match::where('winner_id', $this->id)->orWhere('loser_id', $this->id)->orderBy('date', 'DESC')->get();

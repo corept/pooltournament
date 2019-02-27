@@ -21,16 +21,8 @@ class MatchesTableSeeder extends Seeder
       ], [
         'remaining_balls' => $faker->numberBetween(1, 7),
         'forfeit' => false,
-        'date' => $faker->dateTime(now())
+        'date' => $faker->date('d-m-Y', now())
       ]);
-    }
-
-    foreach (\App\Match::all() as $match) {
-      $match->winner->update(['points' => $match->winner->points + 3]);
-
-      if (!$match->forfeit) {
-        $match->loser->update(['points' => $match->loser->points + 1, 'balls' => $match->loser->balls + $match->remaining_balls]);
-      }
     }
   }
 }

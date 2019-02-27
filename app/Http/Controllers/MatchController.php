@@ -21,12 +21,14 @@ class MatchController extends Controller
 
   public function store()
   {
+    //dd(request()->input('date'));
+
     $validator = request()->validate([
       'winner_id' => 'integer',
       'loser_id' => 'integer',
       'remaining_balls' => 'integer',
       'forfeit' => 'boolean',
-      'date' => 'date'
+      'date' => 'date_format:d-m-Y'
     ]);
 
     Match::create($validator);

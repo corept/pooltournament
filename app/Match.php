@@ -6,7 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Match extends Model
 {
-  protected $dates = ['date'], $guarded = [];
+  protected $guarded = [], $dates = ['date'];
+
+  protected static function boot()
+  {
+    parent::boot();
+
+    static::created(function ($match) {
+      $match->winner->update(['points' => $match->winner->points + 3]);
+
+      if (!$match->forfeit) {
+        $match->loser->update(['points' => $match->loser->points + 1, 'balls' => $match->loser->balls + $match->remaining_balls]);
+      }
+    });
+  }
 
   public function winner()
   {
